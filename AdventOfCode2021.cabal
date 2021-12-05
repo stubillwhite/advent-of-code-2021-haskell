@@ -25,11 +25,14 @@ source-repository head
 library
   exposed-modules:
       AdventOfCode.Day01
+      AdventOfCode.Day02
       Lib
   other-modules:
       Paths_AdventOfCode2021
   hs-source-dirs:
       src
+  default-extensions:
+      NamedFieldPuns
   build-depends:
       base >=4.7 && <5
     , parsec
@@ -42,6 +45,8 @@ executable AdventOfCode2021-exe
       Paths_AdventOfCode2021
   hs-source-dirs:
       app
+  default-extensions:
+      NamedFieldPuns
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       AdventOfCode2021
@@ -55,9 +60,12 @@ test-suite AdventOfCode2021-test
   main-is: Spec.hs
   other-modules:
       AdventOfCode.Day01Spec
+      AdventOfCode.Day02Spec
       Paths_AdventOfCode2021
   hs-source-dirs:
       test
+  default-extensions:
+      NamedFieldPuns
   build-depends:
       AdventOfCode2021
     , base >=4.7 && <5
