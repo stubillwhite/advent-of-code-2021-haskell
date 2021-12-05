@@ -10,6 +10,17 @@ import Data.Maybe (fromJust)
 import Text.ParserCombinators.Parsec
 import Text.Parsec (endOfLine)
 
+exampleInput :: String
+exampleInput =
+  unlines
+    [ "forward 5",
+      "down 5",
+      "forward 8",
+      "up 3",
+      "down 8",
+      "forward 2"
+    ]
+
 data Command
   = Forward Int
   | Up Int
@@ -54,6 +65,8 @@ updateLocation location@Location {depth} (Down n) = location {depth = depth + n}
 productOfFinalPosition :: Location -> Int
 productOfFinalPosition Location {position, depth} = position * depth
 
+-- >>> solutionOne exampleInput
+-- Right 150
 solutionOne :: String -> Either ParseError Int
 solutionOne input =
   fmap (productOfFinalPosition . foldl updateLocation (Location 0 0 0)) cmds
@@ -65,6 +78,8 @@ updateLocationAndAim location@Location {position, depth, aim} (Forward n) = loca
 updateLocationAndAim location@Location {aim} (Up n) = location {aim = aim - n}
 updateLocationAndAim location@Location {aim} (Down n) = location {aim = aim + n}
 
+-- >>> solutionTwo exampleInput
+-- Right 900
 solutionTwo :: String -> Either ParseError Int
 solutionTwo input =
   fmap (productOfFinalPosition . foldl updateLocationAndAim (Location 0 0 0)) cmds

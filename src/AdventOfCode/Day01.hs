@@ -9,7 +9,6 @@ import Text.Parsec (count)
 exampleInput :: String
 exampleInput = unlines (map show [199, 200, 208, 210, 200, 207, 240, 269, 260, 263])
 
-
 -- >>> slidingWindow 1 1 [1, 2, 3]
 -- >>> slidingWindow 2 1 [1, 2, 3]
 -- >>> slidingWindow 3 1 [1, 2, 3]
