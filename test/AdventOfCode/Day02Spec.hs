@@ -2,7 +2,7 @@ module AdventOfCode.Day02Spec (main, spec) where
 
 import Test.Hspec ( hspec, describe, it, shouldBe, Spec )
 
-import AdventOfCode.Day02 ( day02, solutionOne )
+import AdventOfCode.Day02 ( day02, solutionOne, solutionTwo )
 
 main :: IO ()
 main = hspec spec
@@ -22,4 +22,7 @@ spec :: Spec
 spec = do
   describe "solutionOne" $ do
     it "should return expected result for example input" $ do
-      solutionOne exampleInput `shouldBe` (Right 150)
+      solutionOne exampleInput `shouldBe` Right 150
+  describe "solutionTwo" $ do
+    it "should return expected result for example input" $ do
+      solutionTwo exampleInput `shouldBe` Right 900

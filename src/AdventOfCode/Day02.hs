@@ -1,6 +1,7 @@
 module AdventOfCode.Day02
   ( day02,
-    solutionOne,
+    solutionOne, 
+    solutionTwo
   )
 where
 
@@ -40,7 +41,8 @@ commands = many command
 
 data Location = Location
   { position :: Int,
-    depth :: Int
+    depth :: Int,
+    aim :: Int
   }
   deriving (Show)
 
@@ -54,7 +56,18 @@ productOfFinalPosition Location {position, depth} = position * depth
 
 solutionOne :: String -> Either ParseError Int
 solutionOne input =
-  fmap (productOfFinalPosition . foldl updateLocation (Location 0 0)) cmds
+  fmap (productOfFinalPosition . foldl updateLocation (Location 0 0 0)) cmds
+  where
+    cmds = parse commands "Failed to parse" input
+
+updateLocationAndAim :: Location -> Command -> Location
+updateLocationAndAim location@Location {position, depth, aim} (Forward n) = location {position = position + n, depth = depth + aim * n}
+updateLocationAndAim location@Location {aim} (Up n) = location {aim = aim - n}
+updateLocationAndAim location@Location {aim} (Down n) = location {aim = aim + n}
+
+solutionTwo :: String -> Either ParseError Int
+solutionTwo input =
+  fmap (productOfFinalPosition . foldl updateLocationAndAim (Location 0 0 0)) cmds
   where
     cmds = parse commands "Failed to parse" input
 
@@ -63,3 +76,4 @@ day02 = do
   problemInput <- readFile "input/day-2-input.txt"
   putStrLn "Day 2"
   putStrLn $ "  Part one: " ++ show (solutionOne problemInput)
+  putStrLn $ "  Part two: " ++ show (solutionTwo problemInput)
